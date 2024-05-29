@@ -25,18 +25,18 @@ function renderCharts(data) {
   renderFacultyByEducAttainment(data.facultyByEducAttainment)
 }
 
-function renderRatioByRank(chartData){
+function renderRatioByRank(chartData) {
   var labels = chartData.map((item) => item.facultyRank);
   var counts = chartData.map((item) => item.rankCount);
   var customColors = ['#8E1537', '#FFB81D', '#005740', '#8E1537', '#C70039']; // Example custom colors
 
-  var ctx = document.getElementById("ratioByRank");
+  var ctx = document.getElementById("totalByRank");
   var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
         labels: labels,
         datasets: [{
-            label: 'Ratio by Rank',
+            label: 'Total by Rank',
             data: counts,
             backgroundColor: customColors,
             borderWidth: 5
@@ -52,6 +52,7 @@ function renderRatioByRank(chartData){
     }
   });
 }
+
 
 function renderRatioByEduc(chartData) {
   var labels = chartData.map((item) => item.educationalAttainment);
@@ -60,13 +61,13 @@ function renderRatioByEduc(chartData) {
   // Define your custom color palette
   var customColors = ['#8E1537', '#FFB81D', '#005740', '#808080'];
 
-  var ctx = document.getElementById("ratioByEduc");
+  var ctx = document.getElementById("ratioByEduc");  // Use the existing ID if needed
   var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
         labels: labels,
         datasets: [{
-            label: 'Educational Attainment',
+            label: 'Total by Educational Attainment',
             data: counts,
             backgroundColor: customColors,
             borderWidth: 5
@@ -82,6 +83,7 @@ function renderRatioByEduc(chartData) {
     }
   });
 }
+
 
 let totalFacultyChart;
 

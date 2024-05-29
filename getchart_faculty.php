@@ -37,35 +37,35 @@ function fetchQueryResults($conn, $sql) {
     return $data;
 }
 
-// Execute SQL query to retrieve the ratio of faculty by rank
+// Execute SQL query to retrieve the total count of faculty by rank
 $sql1 = "SELECT 
-         rank_title.title AS facultyRank, 
-         SUM(COALESCE(faculty.count, 0)) AS rankCount,
-         ROUND((SUM(COALESCE(faculty.count, 0)) * 100.0 / COALESCE((SELECT SUM(COALESCE(count, 0)) FROM faculty), 1)), 2) AS Percentage
-      FROM 
-         faculty
-      JOIN 
-         rank_title ON faculty.rankID = rank_title.rankID
-      GROUP BY 
-         rank_title.title
-      ORDER BY 
-         Percentage DESC";
+            rank_title.title AS facultyRank, 
+            SUM(COALESCE(faculty.count, 0)) AS rankCount
+         FROM 
+            faculty
+         JOIN 
+            rank_title ON faculty.rankID = rank_title.rankID
+         GROUP BY 
+            rank_title.title
+         ORDER BY 
+            rankCount DESC";
 
 $charts['ratioByRank'] = fetchQueryResults($conn, $sql1);
 
+
 // Execute SQL query to retrieve the ratio of faculty by educational attainment
+// Execute SQL query to retrieve the total count of faculty by educational attainment
 $sql2 = "SELECT 
-         educ_attainment.attainment AS educationalAttainment,
-         SUM(COALESCE(faculty.count, 0)) AS facultyCount,
-         ROUND((SUM(COALESCE(faculty.count, 0)) * 100.0 / COALESCE((SELECT SUM(COALESCE(count, 0)) FROM faculty), 1)), 2) AS Percentage
-      FROM 
-         faculty
-      JOIN 
-         educ_attainment ON faculty.educAttainmentID = educ_attainment.educAttainmentID
-      GROUP BY 
-         educ_attainment.attainment
-      ORDER BY 
-         Percentage DESC";
+            educ_attainment.attainment AS educationalAttainment,
+            SUM(COALESCE(faculty.count, 0)) AS facultyCount
+         FROM 
+            faculty
+         JOIN 
+            educ_attainment ON faculty.educAttainmentID = educ_attainment.educAttainmentID
+         GROUP BY 
+            educ_attainment.attainment
+         ORDER BY 
+            facultyCount DESC";
 
 $charts['ratioByEduc'] = fetchQueryResults($conn, $sql2);
 
